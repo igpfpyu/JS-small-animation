@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<style type="text/css">
+* { padding: 0; margin: 0; }
+ul li{list-style: none;}
+body { background-color: #191919; margin: 20px 0; }
+a{text-decoration:none;}
+#main{float:left; width:240px;background:#f00; position:relative;}
+#bg{width:240px; height:160px; background:#00f; position:absolute; top:0px; left:0px; z-index:2; background:url(img/imgtxtbg.png) repeat 0 0;}
+#bg p{padding:10px; color:#fff; line-height:22px; font-size:12px;}
+#nav{width:240px; height:480px; z-index:1;position:relative;}
+#nav li{float:left; overflow:hidden; position:absolute;}
+#nav li a{display:block; color:#fff;}
+#nav li.w1{width:240px; height:160px; top:0px; left:0px;}
+#nav li.w2, #nav li.w5{width:120px; height:160px;}
+#nav li.w2{top:160px; left:0px;}
+#nav li.w3, #nav li.w4,#nav li.w5, #nav li.w6{width:120px; height:80px; }
+#nav li.w3{right:0px; top:160px}
+#nav li.w4{right:0px; top:240px}
+#nav li.w5{left:0px; top:320px;}
+#nav li.w6{left:0px; top:400px;}
+#nav li.w7{right:0px; bottom:0px;}
+.hot{height:20px; line-height:20px; color:#fff; background:#008000;display:inline-block; position:absolute;  padding:0 10px; bottom:0px;right:0px;}
+</style>
+</head>
+<body>
+	<div id="main">
+		<ul id="nav">
+			<li class="w1"><a href="javascript:;" title=""><img src="img/s1.jpg" /></a></li>
+			<li class="w2"><a href="javascript:;" title=""><img src="img/s2.jpg" /></a></li>
+			<li class="w3"><a href="javascript:;" title=""><img src="img/s3.jpg" /></a></li>
+			<li class="w4"><a href="javascript:;" title=""><img src="img/s4.jpg" /></a></li>
+			<li class="w5"><a href="javascript:;" title=""><img src="img/s5.jpg" /></a></li>
+			<li class="w6"><a href="javascript:;" title=""><img src="img/s6.jpg" /></a></li>
+			<li class="w7"><a href="javascript:;" title=""><img src="img/s7.jpg" /></a></li>
+		</ul>
+		<div id="bg">
+			<p>直击美女保镖入驻训练营 训练起来不含糊</p>
+			<span class="hot">热门：1000</span>
+		</div>
+	</div>
+<script type="text/javascript" language="JavaScript">
+
+window.onload=function(){
+	var oMain=document.getElementById('main');
+	var oNav=document.getElementById('nav');
+	var aLi=oNav.getElementsByTagName('li');
+	var oBg=document.getElementById('bg');
+	var oP=oBg.getElementsByTagName('p')[0];
+	var pTxt=[
+		'男子特殊家庭：要给七位女士购置母亲节礼品',
+		'非洲赞比亚大象爬过白蚁丘上树摘水果(图)',
+		'乌克兰摄影师拒绝PS 用技术创作梦幻人像',
+		'加男子伪造2.5亿美元假钞 蹲监45天罚款获释',
+		'美国男子杀死妻子及宠物鹦鹉：他们话太多',
+		'美容小贴士：日媒教你正确保养粉扑',
+		'调查显示多数父母为成年子女担忧致失眠',
+	];
+	for(var i=0; i<aLi.length; i++){
+		aLi[i].index=i;
+		aLi[i].onmouseover=function(){
+			oP.innerHTML=pTxt[this.index]
+			startMove(oBg,{left:this.offsetLeft, top:this.offsetTop, width:this.offsetWidth, height:this.offsetHeight})
+
+		}
+	}
+}
+function startMove(obj, json, fn){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		var bStop=true;
+		for(var attr in json){
+			var iCur=0;
+				if(attr=='opacity'){
+					iCur=Math.round(parseFloat(getStyle(obj, attr))*100);
+				}else{
+					iCur=parseInt(getStyle(obj, attr));
+				}
+			var iSpeed=(json[attr]-iCur)/5;
+				iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(iCur!=json[attr]){
+				bStop=false;
+			}
+			if(attr=='opacity'){
+				obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')'
+				obj.style.opacity=(iCur+iSpeed)/100;
+			}else{
+				obj.style[attr]=(iCur+iSpeed)+'px';
+			}
+		}
+		if(bStop){
+			clearInterval(obj.timer);
+			if(fn){
+				fn();
+			}
+		}
+	},30)
+}
+function getStyle(obj, name){
+	if(obj.currentStyle){
+		return obj.currentStyle[name];
+	}else{
+		return getComputedStyle(obj, false)[name];
+	}
+}
+function getByClass(oParent, sClass){
+	var aEle=oParent.getElementsByTagName('*');
+	var aResult=[];
+	for(var i=0; i<aEle.length; i++){
+		if(aEle[i].className=sClass){
+			aResult.push(aEle[i]);
+		}
+	}
+	return aResult;
+}
+</script>
+</body>
+</html>
