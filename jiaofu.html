@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js动画效果</title>
+
+<style type="text/css">
+*{ padding:0; margin:0; }
+ul li, li{list-style: none;}
+body{width:100%; height:auto; margin:0px; padding:0px;}
+a{text-decoration:none;}
+.fl{float:left;}
+.fr{float:right;}
+.clear0{width:100%; height:0px; overflow:hidden; clear:both;}
+#main_page{width:1005px; margin:0 auto;padding:10px 0px; }
+#lump{overflow:hidden;}
+.lump_box{width:1005px;}
+.box{float:left; width:200px; height:252px; background:#f7f7f7; overflow:hidden; margin-right:1px; position:relative;}
+.boxbg{width:200px; height:252px; background:#7da914; opacity:0; filter:alpha(opacity:0);}
+.box_img, .box_img1{position:absolute; top:50px;}
+.box_img{left:45px;}
+.box_img1{left:-110px;}
+.box_txt, .box_txt1{width:200px; height:92px;position:absolute; top:160px;}
+.box_txt{right:0px;}
+.box_txt1{right:-200px;}
+.box_txt span, .box_txt1 span{display:block; font-size:14px; text-align: center; line-height:30px;}
+.box_txt p, .box_txt1 p{color:#666; font-size:12px; line-height:22px; text-align:center;}
+.box_txt1 span, .box_txt1 p{color:#fff}
+</style>
+</head>
+<body>
+	<div id="main_page">
+		<div id="lump">
+			<div class="lump_box">
+				<div class="box">
+					<div class="boxbg"></div>
+					<div class="box_img">
+						<img src="img/a.png" />
+					</div>
+					<div class="box_img1">
+						<img src="img/a1.png" />
+					</div>
+					<div class="box_txt">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+					<div class="box_txt1">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="boxbg"></div>
+					<div class="box_img">
+						<img src="img/b.png" />
+					</div>
+					<div class="box_img1">
+						<img src="img/b1.png" />
+					</div>
+					<div class="box_txt">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+					<div class="box_txt1">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="boxbg"></div>
+					<div class="box_img">
+						<img src="img/c.png" />
+					</div>
+					<div class="box_img1">
+						<img src="img/c1.png" />
+					</div>
+					<div class="box_txt">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+					<div class="box_txt1">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="boxbg"></div>
+					<div class="box_img">
+						<img src="img/d.png" />
+					</div>
+					<div class="box_img1">
+						<img src="img/d1.png" />
+					</div>
+					<div class="box_txt">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+					<div class="box_txt1">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+				</div>
+				<div class="box">
+					<div class="boxbg"></div>
+					<div class="box_img">
+						<img src="img/e.png" />
+					</div>
+					<div class="box_img1">
+						<img src="img/e1.png" />
+					</div>
+					<div class="box_txt">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+					<div class="box_txt1">
+						<span>开心网</span>
+						<p>开心网营销</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" language="JavaScript">
+window.onload=function(){
+	var oLump=document.getElementById('lump');
+	var aBox=getByClass(oLump, 'box');
+	var oBogBg=getByClass(oLump, 'boxbg');
+	var oBoxImg=getByClass(oLump, 'box_img');
+	var oBoxImg1=getByClass(oLump, 'box_img1');
+	var oBoxTxt=getByClass(oLump, 'box_txt');
+	var oBoxTxt1=getByClass(oLump, 'box_txt1');
+
+	var iNow=0;
+	for(var i=0; i<aBox.length; i++){
+		aBox[i].index=i;
+		aBox[i].onmouseover=function(ev){
+			oBogBg[this.index].style.display='block';
+			startMove(oBoxImg[this.index], {left:200});
+			startMove(oBoxImg1[this.index], {left:45});
+			startMove(oBoxTxt[this.index], {right:200});
+			startMove(oBoxTxt1[this.index], {right:0});
+			startMove(oBogBg[this.index], {opacity:100});
+		};
+		aBox[i].onmouseout=function(ev){
+			var _this=this
+			startMove(oBoxImg[this.index], {left:45});
+			startMove(oBoxImg1[this.index], {left:-200});
+			startMove(oBoxTxt[this.index], {right:0});
+			startMove(oBoxTxt1[this.index], {right:-200});
+			startMove(oBogBg[this.index], {opacity:0}, function(){
+				oBogBg[_this.index].style.display='none';
+			});
+		};
+	};
+};
+function startMove(obj, json, fnEnd){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function(){
+		var bStop=true;
+		for(var attr in json){
+			var iCur=0;
+				if(attr=='opacity'){
+					iCur=Math.round(parseFloat(getStyle(obj, attr))*100);
+				}else{
+					iCur=parseInt(getStyle(obj, attr));
+				};
+			var iSpeed=(json[attr]-iCur)/12;
+				iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+			if(json[attr]!=iCur){
+				bStop=false;
+			};
+			if(attr=='opacity'){
+				obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')';
+				obj.style.opacity=(iCur+iSpeed)/100;
+			}else{
+				obj.style[attr]=(iCur+iSpeed)+'px';
+			};
+		};
+		if(bStop){
+			clearInterval(obj.timer);
+			if(fnEnd){
+				fnEnd();
+			};
+		};
+	}, 30);
+};
+function getStyle(obj, name){
+	if(obj.currentStyle){
+		return obj.currendStyle[name];
+	}else{
+		return getComputedStyle(obj, false)[name];
+	};
+};
+function getByClass(oParent, sClass){
+	var aResult=[];
+	var oEle=oParent.getElementsByTagName('*');
+	for(var i=0; i<oEle.length; i++){
+		if(oEle[i].className==sClass){
+			aResult.push(oEle[i]);
+		};
+	};
+	return  aResult;
+};
+</script>
+</body>
+</html>
